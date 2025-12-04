@@ -193,7 +193,7 @@ public with sharing class DMLOperations {
 
         // Query for existing Opportunity with the same name and account
             List<Opportunity> existingOpps = [
-                SELECT Id
+                SELECT Id, Name, StageName, CloseDate, Amount
                 FROM Opportunity 
                 WHERE Name = :oppName 
                 AND AccountId = :acc.Id
@@ -216,6 +216,14 @@ public with sharing class DMLOperations {
         // Add the Opportunity to the list for upsert
             opportunitiesToUpsert.add(opp);
         }
+        for (Opportunity o : opportunitiesToUpsert) {
+        if (String.isBlank(o.StageName)) {
+        o.StageName = 'Prospecting';
+    }
+        if (o.CloseDate == null) {
+        o.CloseDate = System.today().addMonths(3);
+    }
+}
 
         // Upsert the Opportunities
         upsert opportunitiesToUpsert;
