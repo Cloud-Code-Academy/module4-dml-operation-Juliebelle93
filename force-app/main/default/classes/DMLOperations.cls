@@ -206,7 +206,7 @@ public with sharing class DMLOperations {
             if (existingOpps.isEmpty()) {
 
         // Create a new Opportunity
-                opp = new Opportunity(Name = oppName, AccountId = acc.Id, StageName = 'Prospecting', CloseDate = System.today().addMonths(3), Amount = 50000 );
+            opp = new Opportunity( Name = oppName, AccountId = acc.Id, StageName = 'Qualification', CloseDate = System.today().addMonths(3), Amount = 50000 );
 
             } else {
 
